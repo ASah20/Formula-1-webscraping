@@ -1,0 +1,113 @@
+---
+title: 'Formula 1: Age and Performance'
+author: "Ankur Saha"
+output: html_document
+---
+
+## Introduction
+Formula 1 is widely considered to be the top motorsport in the world. Having some of the fastest cars ever developed to go around a racing circuit. The sport travels to racing circuits all around the world attracting drivers of various ages.
+  
+The data used included every Driver’s Championship won from the first season of the sport in 1950 to the most recently completed 2019 season. With Formula 1 being such a time tested sport, this leads to the question of whether Age plays a factor in the performance of a Driver’s Champion.
+  
+There was a total of 71 seasons with 33 unique drivers and 16 unique constructors involved.
+  
+In order to better see the effect of Age on driver performance, Poles, Wins, Podiums, FastestLaps, and Points will be our performance indicators. The data will be aggregated by age, and the mean of the performance indicators (Poles, Wins, Podiums, FastestLaps, and Points) will be taken. The final dataset consists of 21 unique ages and 5 variables. 
+
+```{r setOptions, message=FALSE, include=FALSE}
+library(googleVis)
+op <- options(gvis.plot.tag='chart')
+```
+
+
+```{r read_data, include=FALSE, echo=FALSE}
+f1agg<-read.csv(url("https://raw.githubusercontent.com/ASah20/Formula-1-webscraping/master/f1age.csv"))
+```
+
+## Poles
+In formula 1, Poles is the number of times in a season a driver qualified to take first position in a race. Observing the graph below, there doesn't seem to be a noticeable impact of age on the number of Poles a Driver will achieve. Ages 24 and 38 had the highest mean Poles of 10.5. However, there does seem to be a drop off in poles once a driver hits the age of 40 and onwards with age 44 having the lowest mean poles of 2.5.
+
+```{r visuals, results='asis', echo=FALSE}
+age_poles_agg <- gvisLineChart(f1agg, xvar="Age", yvar="Poles",options=list(
+                              legend="none", 
+                              series="[{color:'red', targetAxisIndex: 0}]",
+                              title="Age and Poles (Aggregate)", vAxis="{title:'Poles(Mean)'}",
+                              hAxis="{title:'Age'}"))
+plot(age_poles_agg)
+```
+
+## Wins
+Wins is the number of times in a season a driver won a race. Observing the graph below, there does seem to be a noticeable impact of age on the number of Wins a Driver will achieve. As a driver gets older, the number of wins slightly decreases. Age 24 had the highest mean wins with 9, while age 45 had the lowest with 3. Once again, there does seem to be a drop off in wins once a driver hits the age of 40 and onwards.
+
+```{r visuals2, results='asis', echo=FALSE}
+
+age_wins_agg <- gvisLineChart(f1agg, xvar="Age", yvar="Wins",options=list(
+                              legend="none", 
+                              series="[{color:'green', targetAxisIndex: 0}]",
+                              title="Age and Wins (Aggregate)", vAxis="{title:'Wins(Mean)'}",
+                              hAxis="{title:'Age'}"))
+
+plot(age_wins_agg)
+```
+
+## Podiums
+Podiums is the number of times in a season a driver finished 1st, 2nd, or 3rd in a race. Observing the graph below, there does seem to be a noticeable impact of age on the number of Podiums a Driver will achieve. As a driver gets older, the number of Podiums decreases. Age 24 had the highest mean podiums with 16, while age 44 had the lowest with 4. There does seem to be a drop off in podiums once a driver hits the age of 40 and onwards.
+
+```{r visuals3, results='asis', echo=FALSE}
+age_podiums_agg <- gvisLineChart(f1agg, xvar="Age", yvar="Podiums",options=list(
+                              legend="none", 
+                              series="[{color:'orange', targetAxisIndex: 0}]",
+                              title="Age and Podiums (Aggregate)", vAxis="{title:'Podiums(Mean)'}",
+                              hAxis="{title:'Age'}"))
+
+plot(age_podiums_agg)
+```
+
+## FastestLaps
+FastestLaps is the number of times in a season a driver achieved the fastest lap in a race. Observing the graph below, there doesn't seem to be a noticeable impact of age on the number of FastestLaps a Driver will achieve. There isn't any trend to follow. Age 35 had the highest mean FastestLaps with 5.75, while ages 23 and 46 had the lowest with 2.
+
+```{r visuals4, results='asis', echo=FALSE}
+age_fastestlaps_agg <- gvisLineChart(f1agg, xvar="Age", yvar="FastestLaps",options=list(
+                              legend="none", 
+                              series="[{color:'purple', targetAxisIndex: 0}]",
+                              title="Age and Fastestlaps (Aggregate)", vAxis="{title:'Fatestlaps(Mean)'}",
+                              hAxis="{title:'Age'}"))
+
+plot(age_fastestlaps_agg)
+```
+
+## Points
+Points are accrued by a driver during the season if they get 1st, 2nd, or 3rd place in a race. Observing the graph below, there does seem to be a noticeable impact of age on the number of Points a Driver will achieve. There is a decrease in the number of Points a driver acheives as the age gets older. Age 24 had the highest mean Points with 262.5, while age 30 had the lowest with 30.
+
+```{r visuals5, results='asis', echo=FALSE}
+age_points_agg <- gvisLineChart(f1agg, xvar="Age", yvar="Points",options=list(
+                              legend="none", 
+                              series="[{color:'blue', targetAxisIndex: 0}]",
+                              title="Age and Points (Aggregate)", vAxis="{title:'Points(Mean)'}",
+                              hAxis="{title:'Age'}"))
+
+plot(age_points_agg)
+```
+
+## Formula 1 Aggregated Table 
+The below table contains the aggregated data table used:
+
+```{r visuals6, results='asis', echo=FALSE}
+Table <- gvisTable(f1agg)
+plot(Table)
+options(op)
+```
+
+## Conclusion
+After looking at the data and the impact of Age on the 5 performance indicator variables (Poles, Wins, Podiums, FastestLaps, and Points), there does seem to be an overall effect of age on the performance of a Driver’s Champion. 
+
+Observing the indicator variables, Age had an impact on 3 out of the 5 variables observed. The following three variables: Wins, Podiums, and Points, all showed a decrease in values as the age of a driver increased. Meaning the younger the driver the better they did for that variable. Also, in most every indicator variable, the age with the highest value was in the 20's. The reason for age having an impact on driver performance can be due to younger drivers having better confidence and reaction times versus their older rivals. Also, younger drivers may also have better adaptibility and a higher growth ceiling. 
+
+However, this information is not concrete because it does not take into account the multitude of other factors that come into play. Other factors that can affect a driver's performance can be lack of confidence or simply mechanical issues with their car. Overall, if one were to simply look at the information given it can be said that Age plays a factor in the performance of a Driver’s Champion. 
+
+
+
+## Sources for Data
+“F1 Statistics Database & Race Results.” GP Racing Stats, gpracingstats.com/.
+
+“List of Formula One World Drivers' Champions.” Wikipedia, Wikimedia Foundation, 1 Mar. 2020, en.wikipedia.org/wiki/List_of_Formula_One_World_Drivers'_Champions.
+
